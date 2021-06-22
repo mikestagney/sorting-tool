@@ -17,11 +17,12 @@ public class Controller {
         //GenericSorter<T> sorter;
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-datatype")) {
+            if (args[i].equals("-dataType")) {
                 switch (args[i + 1]) {
                     case ("long"):
-                        GenericSorter<Long> longNums = new GenericSorter<>(getLongInput());
+                        GenericSorter<Long> longNums = new GenericSorter<>(getLongInput(), "number");
                         printStatistics(longNums);
+                        System.exit(0);
                         break;
                     case ("line"):
                         dataType = "line";
@@ -32,7 +33,7 @@ public class Controller {
                 }
             }
         }
-        GenericSorter<String> words = new GenericSorter<>(getWordInput());
+        GenericSorter<String> words = new GenericSorter<>(getWordInput(), "word");
         printStatistics(words);
 
     }
@@ -87,12 +88,11 @@ public class Controller {
     }
 
     private <T> void printStatistics(GenericSorter<T> genericSorter) {
-        System.out.printf("Total numbers: %d\n", genericSorter.getTotal());
+        System.out.printf("Total %ss: %d\n",genericSorter.getDataName(), genericSorter.getTotal());
         //System.out.printf("The greatest number: %d (%d time(s)).\n", greatestNumber, numOfGreat);
         
         
-        
-        
+
     }
 
 
