@@ -2,10 +2,16 @@ package sorting;
 
 import java.util.*;
 
-public class Main {
-    public static void main(final String[] args) {
-        Scanner scanner = new Scanner(System.in);
+public class Main<T> {
+    public static Scanner scanner;
 
+
+    public static void main(final String[] args) {
+
+        Controller cli = new Controller(args);
+
+
+        /*
         int counter = 0;
         long greatestNumber = Long.MIN_VALUE;
         int numOfGreat = 1;
@@ -22,6 +28,6 @@ public class Main {
 
         }
         System.out.printf("Total numbers: %d\n", counter);
-        System.out.printf("The greatest number: %d (%d time(s)).\n", greatestNumber, numOfGreat);
+        System.out.printf("The greatest number: %d (%d time(s)).\n", greatestNumber, numOfGreat);*/
     }
 }
