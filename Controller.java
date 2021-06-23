@@ -28,7 +28,7 @@ public class Controller {
         }
         GenericSorter<String> words = new GenericSorter<>(getWordInput(), "word");
         printStatistics(words);
-    }
+        }
 
     private List<Long> getLongInput() {
         List<Long> longList = new ArrayList<>();
