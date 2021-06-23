@@ -1,20 +1,12 @@
 package sorting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Controller {
-
     Scanner scanner;
-    //GenericSorter<T> sorter;
-    
-    Controller(String[] args) {
 
-        String dataType = "word";
+    Controller(String[] args) {
         scanner = new Scanner(System.in);
-        //GenericSorter<T> sorter;
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-dataType")) {
@@ -25,40 +17,18 @@ public class Controller {
                         System.exit(0);
                         break;
                     case ("line"):
-                        dataType = "line";
+                        GenericSorter<String> lines = new GenericSorter<>(getLineInput(), "line");
+                        printStatistics(lines);
+                        System.exit(0);
                         break;
                     default:
-
                         break;
                 }
             }
         }
         GenericSorter<String> words = new GenericSorter<>(getWordInput(), "word");
         printStatistics(words);
-
     }
-
-
-
-
-    /*
-    int counter = 0;
-    long greatestNumber = Long.MIN_VALUE;
-    int numOfGreat = 1;
-        
-        while (scanner.hasNext()) {
-        long number = scanner.nextLong();
-        counter++;
-        if (number > greatestNumber) {
-            greatestNumber = number;
-            numOfGreat = 1;
-        } else if (number == greatestNumber) {
-            numOfGreat++;
-        }
-
-    }*/
-       
-
 
     private List<Long> getLongInput() {
         List<Long> longList = new ArrayList<>();
@@ -79,22 +49,37 @@ public class Controller {
     private ArrayList<String> getWordInput() {
         ArrayList<String> wordList = new ArrayList<>();
         while (scanner.hasNext()) {
-            String temp = scanner.nextLine();
-            String[] words = temp.split(" ");
-            wordList.addAll(Arrays.asList(words));
-
+            String temp = scanner.next();
+            wordList.add(temp);
         }
         return wordList;
     }
 
-    private <T> void printStatistics(GenericSorter<T> genericSorter) {
-        System.out.printf("Total %ss: %d\n",genericSorter.getDataName(), genericSorter.getTotal());
-        //System.out.printf("The greatest number: %d (%d time(s)).\n", greatestNumber, numOfGreat);
-        
-        
+    private <T extends Comparable> void printStatistics(GenericSorter<? super T> genericSorter) {
 
+            System.out.printf("Total %ss: %d.\n", genericSorter.getDataName(), genericSorter.getTotal());
+
+            T greatest = genericSorter.dataName.equals("number") ? (T)genericSorter.getGreatestNumber() : (T) getLongestString(genericSorter);
+            String superlative = genericSorter.dataName.equals("number") ? "greatest" : "longest";
+            int numOfTimes = genericSorter.frequencyItem(greatest);
+            int percent = numOfTimes * 100 / genericSorter.getTotal();
+
+            if (genericSorter.dataName.equals("line")) {
+                System.out.printf("The %s %s:\n%s\n(%s time(s)), %d%%).\n", superlative, genericSorter.getDataName(), greatest, numOfTimes, percent);
+            } else {
+                System.out.printf("The %s %s: %s (%s time(s)), %d%%).\n", superlative, genericSorter.getDataName(), greatest, numOfTimes, percent);
+            }
     }
-
+    private<T> String getLongestString(GenericSorter<? super T> stringList) {
+        String longest = "";
+        for (int i = 0; i < stringList.getTotal(); i++) {
+            String test = stringList.getItem(i).toString();
+            if (longest.length() < test.length()) {
+                longest = test;
+            }
+        }
+        return longest;
+    }
 
 
 

@@ -1,11 +1,10 @@
 package sorting;
 
-import java.util.ArrayList;
+
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class GenericSorter<T> {
+public class GenericSorter<T extends Comparable<? super T>> {
 
     List<T> list;
     String dataName;
@@ -22,12 +21,27 @@ public class GenericSorter<T> {
     public String getDataName() {
         return dataName;
     }
-    /*
-    public T getGreatest() {
-        Collections.sort(list);
 
+    public T getGreatestNumber() {
+        Collections.sort(list);
+        return list.get(list.size() - 1);
+    }
+    public int frequencyItem(T check) {
+        int numTimes = 0;
+        for (T item: list ) {
+            if (item.equals(check)) {
+                numTimes++;
+            }
+        }
+        return numTimes;
+    }
+    /*
+    public <T extends String> T getLongestString() {
+        Collections.sort(list, (s1, s2) -> s1.length() - s2.length());
 
     }*/
-
+    public T getItem(int index) {
+        return list.get(index);
+    }
 
 }
