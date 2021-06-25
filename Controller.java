@@ -11,7 +11,7 @@ public class Controller {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-sortIntegers")) {
                 GenericSorter<Integer> intsToSort = new GenericSorter<>(getIntInput(), "numbers");
-                // put sorting function call here
+                printIntegers(intsToSort);
                 printStatistics(intsToSort);
                 System.exit(0);
             } else if (args[i].equals("-dataType")) {
@@ -83,6 +83,13 @@ public class Controller {
                 System.out.printf("The %s %s: %s (%s time(s)), %d%%).\n", superlative, genericSorter.getDataName(), greatest, numOfTimes, percent);
             }
     }
+    // trying it without extends Comparable
+    private <T> void printIntegers(GenericSorter<? super T> intSorted) {
+
+
+
+    }
+
     private<T> String getLongestString(GenericSorter<? super T> stringList) {
         String longest = "";
         for (int i = 0; i < stringList.getTotal(); i++) {
