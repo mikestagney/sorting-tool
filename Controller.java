@@ -9,7 +9,12 @@ public class Controller {
         scanner = new Scanner(System.in);
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-dataType")) {
+            if (args[i].equals("-sortIntegers")) {
+                GenericSorter<Integer> intsToSort = new GenericSorter<>(getIntInput(), "numbers");
+                // put sorting function call here
+                printStatistics(intsToSort);
+                System.exit(0);
+            } else if (args[i].equals("-dataType")) {
                 switch (args[i + 1]) {
                     case ("long"):
                         GenericSorter<Long> longNums = new GenericSorter<>(getLongInput(), "number");
@@ -53,6 +58,14 @@ public class Controller {
             wordList.add(temp);
         }
         return wordList;
+    }
+    private ArrayList<Integer> getIntInput() {
+        ArrayList<Integer> intList = new ArrayList<>();
+        while (scanner.hasNext()) {
+            Integer temp = scanner.nextInt();
+            intList.add(temp);
+        }
+        return intList;
     }
 
     private <T extends Comparable> void printStatistics(GenericSorter<? super T> genericSorter) {
