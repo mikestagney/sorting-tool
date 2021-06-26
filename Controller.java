@@ -11,8 +11,8 @@ public class Controller {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-sortIntegers")) {
                 GenericSorter<Integer> intsToSort = new GenericSorter<>(getIntInput(), "numbers");
+                intsToSort.sortList();
                 printIntegers(intsToSort);
-                printStatistics(intsToSort);
                 System.exit(0);
             } else if (args[i].equals("-dataType")) {
                 switch (args[i + 1]) {
@@ -85,8 +85,8 @@ public class Controller {
     }
     // trying it without extends Comparable
     private <T> void printIntegers(GenericSorter<? super T> intSorted) {
-
-
+        System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
+        System.out.printf("Sorted data: %s", intSorted.toString());
 
     }
 

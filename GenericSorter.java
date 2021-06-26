@@ -44,4 +44,18 @@ public class GenericSorter<T extends Comparable<? super T>> {
         return list.get(index);
     }
 
+    public void sortList() {
+
+
+    }
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        for (T element: list) {
+            builder.append(element.toString()).append(" ");
+        }
+        return builder.toString();
+    }
+
+
 }
