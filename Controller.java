@@ -83,11 +83,9 @@ public class Controller {
                 System.out.printf("The %s %s: %s (%s time(s)), %d%%).\n", superlative, genericSorter.getDataName(), greatest, numOfTimes, percent);
             }
     }
-    // trying it without extends Comparable
     private <T> void printIntegers(GenericSorter<? super T> intSorted) {
-        System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
-        System.out.printf("Sorted data: %s", intSorted.toString());
-
+        System.out.printf("Total %s: %d.\n", intSorted.getDataName(), intSorted.getTotal());
+        System.out.printf("Sorted data: %s\n", intSorted);
     }
 
     private<T> String getLongestString(GenericSorter<? super T> stringList) {
