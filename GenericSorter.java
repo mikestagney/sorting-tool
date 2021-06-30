@@ -34,11 +34,7 @@ public class GenericSorter<T extends Comparable<? super T>> {
         }
         return numTimes;
     }
-    /*
-    public <T extends String> T getLongestString() {
-        Collections.sort(list, (s1, s2) -> s1.length() - s2.length());
 
-    }*/
     public T getItem(int index) {
         return list.get(index);
     }
