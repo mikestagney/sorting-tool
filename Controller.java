@@ -2,41 +2,39 @@ package sorting;
 
 import java.util.*;
 
-public class Controller {
+public class Controller<T extends Comparable<? super T>> {
     Scanner scanner;
+    String dataType = "word";
+    String sortType = "natural";
+    GenericSorter<T> sorter;
 
     Controller(String[] args) {
         scanner = new Scanner(System.in);
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-sortIntegers")) {
-                GenericSorter<Integer> intsToSort = new GenericSorter<>(getIntInput(), "numbers");
-                intsToSort.naturalSort();
-                printNaturalSorted(intsToSort);
-                System.exit(0);
+            if (args[i].equals("-sortingType")) {
+                sortType = args[i + 1];
             } else if (args[i].equals("-dataType")) {
-                switch (args[i + 1]) {
-                    case ("long"):
-                        GenericSorter<Long> longNums = new GenericSorter<>(getLongInput(), "number");
-                        longNums.naturalSort();
-                        printNaturalSorted(longNums);
-                        System.exit(0);
-                        break;
-                    case ("line"):
-                        GenericSorter<String> lines = new GenericSorter<>(getLineInput(), "line");
-                        lines.naturalSort();
-                        printNaturalSorted(lines);
-                        System.exit(0);
-                        break;
-                    default:
-                        break;
-                }
+                dataType = args[i + 1];
             }
         }
-        GenericSorter<String> words = new GenericSorter<>(getWordInput(), "word");
-        words.naturalSort();
-        printNaturalSorted(words);
+
+        switch (dataType) {
+            case("long"):
+                sorter = (GenericSorter<T>) new GenericSorter<Long>(getLongInput(), "number");
+                break;
+            case("line"):
+                sorter = (GenericSorter<T>) new GenericSorter<String>(getLineInput(), "line");
+                break;
+            case("word"):
+                sorter = (GenericSorter<T>) new GenericSorter<>(getWordInput(), "word");
+                break;
         }
+
+        sorter.naturalSort();
+        printNaturalSorted(sorter);
+
+    }
 
     private List<Long> getLongInput() {
         List<Long> longList = new ArrayList<>();
@@ -87,7 +85,7 @@ public class Controller {
             }
     }
     private <T> void printNaturalSorted(GenericSorter<? super T> intSorted) {
-        System.out.printf("Total %s: %d.\n", intSorted.getDataName(), intSorted.getTotal());
+        System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
         System.out.printf("Sorted data: %s\n", intSorted);
     }
 

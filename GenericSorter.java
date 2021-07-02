@@ -39,6 +39,13 @@ public class GenericSorter<T extends Comparable<? super T>> {
         return list.get(index);
     }
 
+    public void countSort() {
+        // create map from list with value = frequency
+
+
+    }
+
+
     public void naturalSort() {
         for (int i = 1; i < list.size(); i++) {
             T element = list.get(i);
@@ -62,6 +69,9 @@ public class GenericSorter<T extends Comparable<? super T>> {
             } else {
                 builder.append(" ");
             }
+        }
+        if (dataName.equals("line")) {
+            builder.insert(0, "\n");
         }
         return builder.toString();
     }
