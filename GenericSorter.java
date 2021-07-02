@@ -39,7 +39,7 @@ public class GenericSorter<T extends Comparable<? super T>> {
         return list.get(index);
     }
 
-    public void sortList() {
+    public void naturalSort() {
         for (int i = 1; i < list.size(); i++) {
             T element = list.get(i);
             list.remove(i);
@@ -56,7 +56,12 @@ public class GenericSorter<T extends Comparable<? super T>> {
         StringBuilder builder = new StringBuilder();
 
         for (T element: list) {
-            builder.append(element.toString()).append(" ");
+            builder.append(element.toString());
+            if (dataName.equals("line")) {
+                builder.append("\n");
+            } else {
+                builder.append(" ");
+            }
         }
         return builder.toString();
     }

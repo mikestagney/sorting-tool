@@ -11,19 +11,21 @@ public class Controller {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-sortIntegers")) {
                 GenericSorter<Integer> intsToSort = new GenericSorter<>(getIntInput(), "numbers");
-                intsToSort.sortList();
-                printIntegers(intsToSort);
+                intsToSort.naturalSort();
+                printNaturalSorted(intsToSort);
                 System.exit(0);
             } else if (args[i].equals("-dataType")) {
                 switch (args[i + 1]) {
                     case ("long"):
                         GenericSorter<Long> longNums = new GenericSorter<>(getLongInput(), "number");
-                        printStatistics(longNums);
+                        longNums.naturalSort();
+                        printNaturalSorted(longNums);
                         System.exit(0);
                         break;
                     case ("line"):
                         GenericSorter<String> lines = new GenericSorter<>(getLineInput(), "line");
-                        printStatistics(lines);
+                        lines.naturalSort();
+                        printNaturalSorted(lines);
                         System.exit(0);
                         break;
                     default:
@@ -32,7 +34,8 @@ public class Controller {
             }
         }
         GenericSorter<String> words = new GenericSorter<>(getWordInput(), "word");
-        printStatistics(words);
+        words.naturalSort();
+        printNaturalSorted(words);
         }
 
     private List<Long> getLongInput() {
@@ -83,7 +86,7 @@ public class Controller {
                 System.out.printf("The %s %s: %s (%s time(s)), %d%%).\n", superlative, genericSorter.getDataName(), greatest, numOfTimes, percent);
             }
     }
-    private <T> void printIntegers(GenericSorter<? super T> intSorted) {
+    private <T> void printNaturalSorted(GenericSorter<? super T> intSorted) {
         System.out.printf("Total %s: %d.\n", intSorted.getDataName(), intSorted.getTotal());
         System.out.printf("Sorted data: %s\n", intSorted);
     }
