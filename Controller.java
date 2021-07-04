@@ -21,10 +21,10 @@ public class Controller<T extends Comparable<? super T>> {
 
         switch (dataType) {
             case("long"):
-                sorter = (GenericSorter<T>) new GenericSorter<Long>(getLongInput(), "number");
+                sorter = (GenericSorter<T>) new GenericSorter<>(getLongInput(), "number");
                 break;
             case("line"):
-                sorter = (GenericSorter<T>) new GenericSorter<String>(getLineInput(), "line");
+                sorter = (GenericSorter<T>) new GenericSorter<>(getLineInput(), "line");
                 break;
             case("word"):
                 sorter = (GenericSorter<T>) new GenericSorter<>(getWordInput(), "word");
@@ -32,7 +32,7 @@ public class Controller<T extends Comparable<? super T>> {
         }
         if (sortType.equals("byCount")) {
             sorter.countSort();
-
+            printByCountSorted(sorter);
         } else {
             sorter.naturalSort();
             printNaturalSorted(sorter);
@@ -63,46 +63,14 @@ public class Controller<T extends Comparable<? super T>> {
         }
         return wordList;
     }
-    private ArrayList<Integer> getIntInput() {
-        ArrayList<Integer> intList = new ArrayList<>();
-        while (scanner.hasNext()) {
-            Integer temp = scanner.nextInt();
-            intList.add(temp);
-        }
-        return intList;
+    private void printByCountSorted(GenericSorter<? super T> genericSorter) {
+        System.out.printf("Total %ss: %d.\n", genericSorter.getDataName(), genericSorter.getTotal());
+        System.out.printf("%s\n", genericSorter.printStringByCount());
+
     }
-
-    private <T extends Comparable> void printStatistics(GenericSorter<? super T> genericSorter) {
-
-            System.out.printf("Total %ss: %d.\n", genericSorter.getDataName(), genericSorter.getTotal());
-
-            T greatest = genericSorter.dataName.equals("number") ? (T)genericSorter.getGreatestNumber() : (T) getLongestString(genericSorter);
-            String superlative = genericSorter.dataName.equals("number") ? "greatest" : "longest";
-            int numOfTimes = genericSorter.frequencyItem(greatest);
-            int percent = numOfTimes * 100 / genericSorter.getTotal();
-
-            if (genericSorter.dataName.equals("line")) {
-                System.out.printf("The %s %s:\n%s\n(%s time(s)), %d%%).\n", superlative, genericSorter.getDataName(), greatest, numOfTimes, percent);
-            } else {
-                System.out.printf("The %s %s: %s (%s time(s)), %d%%).\n", superlative, genericSorter.getDataName(), greatest, numOfTimes, percent);
-            }
-    }
-    private <T> void printNaturalSorted(GenericSorter<? super T> intSorted) {
+    private void printNaturalSorted(GenericSorter<? super T> intSorted) {
         System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
         System.out.printf("Sorted data: %s\n", intSorted);
     }
-
-    private<T> String getLongestString(GenericSorter<? super T> stringList) {
-        String longest = "";
-        for (int i = 0; i < stringList.getTotal(); i++) {
-            String test = stringList.getItem(i).toString();
-            if (longest.length() < test.length()) {
-                longest = test;
-            }
-        }
-        return longest;
-    }
-
-
 
 }
