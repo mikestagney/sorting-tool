@@ -30,10 +30,13 @@ public class Controller<T extends Comparable<? super T>> {
                 sorter = (GenericSorter<T>) new GenericSorter<>(getWordInput(), "word");
                 break;
         }
+        if (sortType.equals("byCount")) {
+            sorter.countSort();
 
-        sorter.naturalSort();
-        printNaturalSorted(sorter);
-
+        } else {
+            sorter.naturalSort();
+            printNaturalSorted(sorter);
+        }
     }
 
     private List<Long> getLongInput() {

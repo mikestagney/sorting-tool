@@ -1,12 +1,15 @@
 package sorting;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GenericSorter<T extends Comparable<? super T>> {
 
     List<T> list;
     String dataName;
+    Map<T,Integer> frequencyMap;
 
     GenericSorter(List<T> inputList, String name) {
         list = inputList;
@@ -41,6 +44,18 @@ public class GenericSorter<T extends Comparable<? super T>> {
 
     public void countSort() {
         // create map from list with value = frequency
+        frequencyMap = new HashMap<T, Integer>();
+        for (int i = 1; i < list.size(); i++) {
+            int count = 1;
+            T element = list.get(i);
+            if (frequencyMap.containsKey(element)) {
+                count = frequencyMap.get(element);
+                count++;
+            }
+            frequencyMap.put(element, count);
+        }
+
+        frequencyMap.forEach((k , v ) -> System.out.println(k.toString() + " " + v));
 
 
     }
