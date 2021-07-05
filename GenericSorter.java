@@ -40,9 +40,6 @@ public class GenericSorter<T extends Comparable> {
             LinkedHashMap::new));
     }
     public String printStringByCount() {
-        if (valueSortedMap == null) {
-            return "List not sorted";
-        }
         StringBuilder builder = new StringBuilder();
         valueSortedMap.forEach((k, v) -> builder.append(k.toString()).append(": ")
                 .append(v)
