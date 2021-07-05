@@ -2,7 +2,7 @@ package sorting;
 
 import java.util.*;
 
-public class Controller<T extends Comparable<? super T>> {
+public class Controller<T extends Comparable> {
     Scanner scanner;
     String dataType = "word";
     String sortType = "natural";
@@ -63,12 +63,12 @@ public class Controller<T extends Comparable<? super T>> {
         }
         return wordList;
     }
-    private void printByCountSorted(GenericSorter<? super T> genericSorter) {
+    private void printByCountSorted(GenericSorter<T> genericSorter) {
         System.out.printf("Total %ss: %d.\n", genericSorter.getDataName(), genericSorter.getTotal());
         System.out.printf("%s\n", genericSorter.printStringByCount());
 
     }
-    private void printNaturalSorted(GenericSorter<? super T> intSorted) {
+    private void printNaturalSorted(GenericSorter<T> intSorted) {
         System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
         System.out.printf("Sorted data: %s\n", intSorted);
     }

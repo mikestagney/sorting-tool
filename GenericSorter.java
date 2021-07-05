@@ -3,7 +3,7 @@ package sorting;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GenericSorter<T extends Comparable<? super T>> {
+public class GenericSorter<T extends Comparable> {
 
     List<T> list;
     String dataName;
@@ -23,7 +23,7 @@ public class GenericSorter<T extends Comparable<? super T>> {
     }
 
     public void countSort() {
-        Map<T, Integer> frequencyMap = new HashMap<>();
+        Map<T, Integer> frequencyMap = new TreeMap<>();
         for (T element: list) {
             int count = 1;
             if (frequencyMap.containsKey(element)) {
@@ -32,19 +32,12 @@ public class GenericSorter<T extends Comparable<? super T>> {
             }
             frequencyMap.put(element, count);
         }
-        Map<T, Integer> keySortedMap = frequencyMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue())
-                .collect(Collectors.toMap(Map.Entry::getKey,
-                        Map.Entry::getValue, (oldValue, newValue) -> oldValue,
-                        TreeMap::new));
-
-        valueSortedMap = keySortedMap.entrySet()
+        valueSortedMap = frequencyMap.entrySet()
             .stream()
             .sorted(Map.Entry.comparingByValue())
             .collect(Collectors.toMap(Map.Entry::getKey,
             Map.Entry::getValue, (oldValue, newValue) -> oldValue,
-            LinkedHashMap::new));   //  LinkedHashMap::new));
+            LinkedHashMap::new));
     }
     public String printStringByCount() {
         if (valueSortedMap == null) {
