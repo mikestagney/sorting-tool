@@ -2,11 +2,11 @@ package sorting;
 
 import java.util.*;
 
-public class Controller<T extends Comparable> {
+public class Controller {
     Scanner scanner;
     String dataType = "word";
     String sortType = "natural";
-    GenericSorter<T> sorter;
+    GenericSorter sorter;
 
     Controller(String[] args) {
         scanner = new Scanner(System.in);
@@ -21,13 +21,13 @@ public class Controller<T extends Comparable> {
 
         switch (dataType) {
             case("long"):
-                sorter = (GenericSorter<T>) new GenericSorter<>(getLongInput(), "number");
+                sorter = new GenericSorter<>(getLongInput(), "number");
                 break;
             case("line"):
-                sorter = (GenericSorter<T>) new GenericSorter<>(getLineInput(), "line");
+                sorter = new GenericSorter<>(getLineInput(), "line");
                 break;
             case("word"):
-                sorter = (GenericSorter<T>) new GenericSorter<>(getWordInput(), "word");
+                sorter = new GenericSorter<>(getWordInput(), "word");
                 break;
         }
         if (sortType.equals("byCount")) {
@@ -63,12 +63,12 @@ public class Controller<T extends Comparable> {
         }
         return wordList;
     }
-    private void printByCountSorted(GenericSorter<T> genericSorter) {
+    private void printByCountSorted(GenericSorter genericSorter) {
         System.out.printf("Total %ss: %d.\n", genericSorter.getDataName(), genericSorter.getTotal());
         System.out.printf("%s\n", genericSorter.printStringByCount());
 
     }
-    private void printNaturalSorted(GenericSorter<T> intSorted) {
+    private void printNaturalSorted(GenericSorter intSorted) {
         System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
         System.out.printf("Sorted data: %s\n", intSorted);
     }

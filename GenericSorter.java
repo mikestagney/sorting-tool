@@ -7,7 +7,7 @@ public class GenericSorter<T extends Comparable> {
 
     List<T> list;
     String dataName;
-    Map<T,Integer> valueSortedMap;
+    Map<T, Integer> valueSortedMap;
 
     GenericSorter(List<T> inputList, String name) {
         list = inputList;
