@@ -13,12 +13,21 @@ public class Controller {
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-sortingType")) {
-                sortType = args[i + 1];
+                if (i + 1 >= args.length || args[i + 1].equals("")) {
+                    System.out.println("No sorting type defined!");
+                } else {
+                    sortType = args[i + 1];
+                }
             } else if (args[i].equals("-dataType")) {
-                dataType = args[i + 1];
+                if (i + 1 >= args.length || args[i + 1].equals("")) {
+                    System.out.println("No data type defined!");
+                } else {
+                    dataType = args[i + 1];
+                }
+            } else if (args[i].contains("-")) {
+                System.out.printf("\"%s\" is not a valid parameter. It will be skipped.\n", args[i]);
             }
         }
-
         switch (dataType) {
             case("long"):
                 sorter = new GenericSorter<>(getLongInput(), "number");
@@ -41,9 +50,15 @@ public class Controller {
 
     private List<Long> getLongInput() {
         List<Long> longList = new ArrayList<>();
-        while (scanner.hasNextLong()) {
-            Long temp = scanner.nextLong();
-            longList.add(temp);
+        String temp = " ";
+        while (scanner.hasNext()) {
+            try {
+                temp = scanner.next();
+                Long number = Long.parseLong(temp);
+                longList.add(number);
+            } catch (NumberFormatException e) {
+                System.out.printf("\"%s\" is not a long. It will be skipped.\n", temp);
+            }
         }
         return longList;
     }
