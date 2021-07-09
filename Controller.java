@@ -7,27 +7,51 @@ public class Controller {
     String dataType = "word";
     String sortType = "natural";
     GenericSorter sorter;
+    String inputFile;
+    String outputFile;
 
     Controller(String[] args) {
         scanner = new Scanner(System.in);
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-sortingType")) {
-                if (i + 1 >= args.length || args[i + 1].equals("")) {
-                    System.out.println("No sorting type defined!");
-                } else {
-                    sortType = args[i + 1];
-                }
-            } else if (args[i].equals("-dataType")) {
-                if (i + 1 >= args.length || args[i + 1].equals("")) {
-                    System.out.println("No data type defined!");
-                } else {
-                    dataType = args[i + 1];
-                }
-            } else if (args[i].contains("-")) {
-                System.out.printf("\"%s\" is not a valid parameter. It will be skipped.\n", args[i]);
+            switch (args[i]) {
+                case("-sortingType"):
+                    if (i + 1 >= args.length || args[i + 1].equals("")) {
+                        System.out.println("No sorting type defined!");
+                    } else {
+                        sortType = args[i + 1];
+                    }
+                    break;
+                case("-dataType"):
+                    if (i + 1 >= args.length || args[i + 1].equals("")) {
+                        System.out.println("No data type defined!");
+                    } else {
+                        dataType = args[i + 1];
+                    }
+                    break;
+                case("-inputFile"):
+                    if (i + 1 >= args.length || args[i + 1].equals("")) {
+                        System.out.println("No input file name defined!");
+                    } else {
+                        inputFile = args[i + 1];
+                    }
+                    break;
+                case("-outputFile"):
+                    if (i + 1 >= args.length || args[i + 1].equals("")) {
+                        System.out.println("No output file name defined!");
+                    } else {
+                        outputFile = args[i + 1];
+                    }
+                    break;
+                default:
+                    if (args[i].startsWith("-")) {
+                        System.out.printf("\"%s\" is not a valid parameter. It will be skipped.\n", args[i]);
+                    }
+                    break;
+
             }
         }
+
         switch (dataType) {
             case("long"):
                 sorter = new GenericSorter<>(getLongInput(), "number");
@@ -39,6 +63,7 @@ public class Controller {
                 sorter = new GenericSorter<>(getWordInput(), "word");
                 break;
         }
+
         if (sortType.equals("byCount")) {
             sorter.countSort();
             printByCountSorted(sorter);
