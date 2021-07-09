@@ -1,46 +1,52 @@
 package sorting;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
 public class Controller {
-    Scanner scanner;
+    Scanner input;
     String dataType = "word";
     String sortType = "natural";
     GenericSorter sorter;
-    String inputFile;
-    String outputFile;
+    String[] arguments;
+    String inputFile = "";
+    String outputFile = "";
 
     Controller(String[] args) {
-        scanner = new Scanner(System.in);
+        input = new Scanner(System.in);
 
+        arguments = args.clone();
         for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
+            switch (arguments[i]) {
                 case("-sortingType"):
-                    if (i + 1 >= args.length || args[i + 1].equals("")) {
-                        System.out.println("No sorting type defined!");
+                    if (isNextArg(i)) {
+                        sortType = arguments[i + 1];
                     } else {
-                        sortType = args[i + 1];
+                        System.out.println("No sorting type defined!");
                     }
                     break;
                 case("-dataType"):
-                    if (i + 1 >= args.length || args[i + 1].equals("")) {
-                        System.out.println("No data type defined!");
+                    if (isNextArg(i)) {
+                        dataType = arguments[i + 1];
                     } else {
-                        dataType = args[i + 1];
+                        System.out.println("No data type defined!");
                     }
                     break;
                 case("-inputFile"):
-                    if (i + 1 >= args.length || args[i + 1].equals("")) {
-                        System.out.println("No input file name defined!");
+                    if (isNextArg(i)) {
+                        inputFile = arguments[i + 1];
                     } else {
-                        inputFile = args[i + 1];
+                        System.out.println("No input file name defined!");
                     }
                     break;
                 case("-outputFile"):
-                    if (i + 1 >= args.length || args[i + 1].equals("")) {
-                        System.out.println("No output file name defined!");
+                    if (isNextArg(i)) {
+                        outputFile = arguments[i + 1];
                     } else {
-                        outputFile = args[i + 1];
+                        System.out.println("No output file name defined!");
                     }
                     break;
                 default:
@@ -51,17 +57,38 @@ public class Controller {
 
             }
         }
-
-        switch (dataType) {
-            case("long"):
-                sorter = new GenericSorter<>(getLongInput(), "number");
-                break;
-            case("line"):
-                sorter = new GenericSorter<>(getLineInput(), "line");
-                break;
-            case("word"):
-                sorter = new GenericSorter<>(getWordInput(), "word");
-                break;
+        if (!inputFile.equals("")) {
+            File file = new File(inputFile);
+            try(Scanner scanner = new Scanner(file)) {
+                ArrayList<String> wordList = new ArrayList<>();
+                while (scanner.hasNext()) {
+                    String temp = scanner.next();
+                    wordList.add(temp);
+                }
+                sorter = new GenericSorter<>(wordList, "word");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found!");
+            }
+        } else {
+            switch (dataType) {
+                case ("long"):
+                    sorter = new GenericSorter<>(getLongInput(), "number");
+                    break;
+                case ("line"):
+                    sorter = new GenericSorter<>(getLineInput(), "line");
+                    break;
+                case ("word"):
+                    sorter = new GenericSorter<>(getWordInput(), "word");
+                    break;
+            }
+        }
+        if (!outputFile.equals("")) {
+            try {
+                FileOutputStream f = new FileOutputStream(outputFile);
+                System.setOut(new PrintStream(f));
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found!");
+            }
         }
 
         if (sortType.equals("byCount")) {
@@ -76,9 +103,9 @@ public class Controller {
     private List<Long> getLongInput() {
         List<Long> longList = new ArrayList<>();
         String temp = " ";
-        while (scanner.hasNext()) {
+        while (input.hasNext()) {
             try {
-                temp = scanner.next();
+                temp = input.next();
                 Long number = Long.parseLong(temp);
                 longList.add(number);
             } catch (NumberFormatException e) {
@@ -89,16 +116,16 @@ public class Controller {
     }
     private ArrayList<String> getLineInput() {
         ArrayList<String> lineList = new ArrayList<>();
-        while (scanner.hasNext()) {
-            String temp = scanner.nextLine();
+        while (input.hasNext()) {
+            String temp = input.nextLine();
             lineList.add(temp);
         }
         return lineList;
     }
     private ArrayList<String> getWordInput() {
         ArrayList<String> wordList = new ArrayList<>();
-        while (scanner.hasNext()) {
-            String temp = scanner.next();
+        while (input.hasNext()) {
+            String temp = input.next();
             wordList.add(temp);
         }
         return wordList;
@@ -112,5 +139,7 @@ public class Controller {
         System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
         System.out.printf("Sorted data: %s\n", intSorted);
     }
-
+    private boolean isNextArg(int i) {
+        return i + 1 < arguments.length && !arguments[i + 1].equals("") && !arguments[i + 1].startsWith("-");
+    }
 }
