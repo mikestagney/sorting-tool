@@ -19,31 +19,31 @@ public class Controller {
         input = new Scanner(System.in);
 
         arguments = args.clone();
-        for (int i = 0; i < args.length; i++) {
+        for (int i = 0; i < arguments.length; i++) {
             switch (arguments[i]) {
                 case("-sortingType"):
-                    if (isNextArg(i)) {
+                    if (isNextArgOK(i)) {
                         sortType = arguments[i + 1];
                     } else {
                         System.out.println("No sorting type defined!");
                     }
                     break;
                 case("-dataType"):
-                    if (isNextArg(i)) {
+                    if (isNextArgOK(i)) {
                         dataType = arguments[i + 1];
                     } else {
                         System.out.println("No data type defined!");
                     }
                     break;
                 case("-inputFile"):
-                    if (isNextArg(i)) {
+                    if (isNextArgOK(i)) {
                         inputFile = arguments[i + 1];
                     } else {
                         System.out.println("No input file name defined!");
                     }
                     break;
                 case("-outputFile"):
-                    if (isNextArg(i)) {
+                    if (isNextArgOK(i)) {
                         outputFile = arguments[i + 1];
                     } else {
                         System.out.println("No output file name defined!");
@@ -51,7 +51,7 @@ public class Controller {
                     break;
                 default:
                     if (args[i].startsWith("-")) {
-                        System.out.printf("\"%s\" is not a valid parameter. It will be skipped.\n", args[i]);
+                        System.out.printf("\"%s\" is not a valid parameter. It will be skipped.\n", arguments[i]);
                     }
                     break;
 
@@ -67,7 +67,7 @@ public class Controller {
                 }
                 sorter = new GenericSorter<>(wordList, "word");
             } catch (FileNotFoundException e) {
-                System.out.println("File not found!");
+                System.out.println("Input file not found!");
             }
         } else {
             switch (dataType) {
@@ -84,10 +84,10 @@ public class Controller {
         }
         if (!outputFile.equals("")) {
             try {
-                FileOutputStream f = new FileOutputStream(outputFile);
-                System.setOut(new PrintStream(f));
+                FileOutputStream file = new FileOutputStream(outputFile);
+                System.setOut(new PrintStream(file));
             } catch (FileNotFoundException e) {
-                System.out.println("File not found!");
+                System.out.println("Output file not found!");
             }
         }
 
@@ -139,7 +139,7 @@ public class Controller {
         System.out.printf("Total %ss: %d.\n", intSorted.getDataName(), intSorted.getTotal());
         System.out.printf("Sorted data: %s\n", intSorted);
     }
-    private boolean isNextArg(int i) {
+    private boolean isNextArgOK(int i) {
         return i + 1 < arguments.length && !arguments[i + 1].equals("") && !arguments[i + 1].startsWith("-");
     }
 }
