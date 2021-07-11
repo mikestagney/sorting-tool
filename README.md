@@ -1,6 +1,6 @@
 # Sorting Tool
 
-Command line app that can sort numbers or text input from the command line. Can sort in natural order or by item frequency. Uses a generic class so one class handles all data types.
+Command line app that can sort numbers or text input from the command line. Can sort in natural order or by item frequency. Uses a generic class so one sorter class handles all data types.
 
 ## Things learned 
 
@@ -13,7 +13,7 @@ Insertion sort algorithm implemented for natural sorting
 User options:
 
 
-#### The directory contains  files: 
+#### The directory contains 3 files: 
 
 * Main.java - sets up the controller object and passes the args array to it
 * Controller.java - parses command line arguments, builds GenericSorted object and handles all user input and output
@@ -23,14 +23,16 @@ Fifteenth project created for JetBrains Academy Java Developer course - hard lev
 
 ### How to Run
 
-The app can run with or without command line arguments.
+The app can run with or without command line arguments. Default options are natural sorting and word datatype.
 
 Parses 4 arguments: -sortingType, -dataType, -inputFile and -outputFile
   
--access: authorization server path. The default value is https://accounts.spotify.com
+-sortingType: 3 data types allowed - long, line or word
 
--resource: API server path. The default value is https://api.spotify.com
+-dataType: defines the sorting type, either natural or byCount
 
--page: number of entries shown on a page. The default value is 5.
+-inputFile: filename to read the input data
+
+-outputFile: filename to print the results, any error messages are output to the console
 
 ### Sample input and output:
