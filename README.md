@@ -10,9 +10,6 @@ Insertion sort algorithm implemented for natural sorting
 
 ### Details
 
-User options:
-
-
 #### The directory contains 3 files: 
 
 * Main.java - sets up the controller object and passes the args array to it
@@ -37,7 +34,7 @@ Parses 4 arguments: -sortingType, -dataType, -inputFile and -outputFile
 
 ### Sample input and output:
 
-The greater-than symbol followed by a space (> ) represents the user input. 
+The greater than symbol followed by a space (> ) represents the user input. 
 
 Example 1, for sorting longs by count:
 
