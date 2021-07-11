@@ -36,3 +36,47 @@ Parses 4 arguments: -sortingType, -dataType, -inputFile and -outputFile
 -outputFile: filename to print the results, any error messages are output to the console
 
 ### Sample input and output:
+
+The greater-than symbol followed by a space (> ) represents the user input. 
+
+Example 1, for sorting longs by count:
+
+\> 1 -2   33 4\
+\> 42\
+\> 1                 1
+
+Total numbers: 7.\
+-2: 1 time(s), 14%\
+4: 1 time(s), 14%\
+33: 1 time(s), 14%\
+42: 1 time(s), 14%\
+1: 3 time(s), 43%
+
+Example 2, for sorting numbers naturally:
+
+\> 1 -2   33 4\
+\> 42\
+\> 1                 1
+
+Total numbers: 7.\
+Sorted data: -2 1 1 1 4 33 42
+
+Example 3, for sorting words naturally:
+
+\> 1 -2   33 4\
+\> 42\
+\> 1                 1\
+Total words: 7.\
+Sorted data: -2 1 1 1 33 4 42
+
+Example 4, for sorting lines naturally:
+
+\> 1 -2   33 4\
+\> 42\
+\> 1                 1
+
+Total lines: 3\
+Sorted data:\
+1                 1\
+1 -2   33 4\
+42
